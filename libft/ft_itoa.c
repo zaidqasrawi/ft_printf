@@ -1,0 +1,66 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zabdulja <zabdulja@student.42amman.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/02 07:05:07 by zabdulja          #+#    #+#             */
+/*   Updated: 2026/10/06 15:00:02 by zabdulja         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+static int	number_len(int n)
+{
+	int	len;
+
+	len = 0;
+	if (n <= 0)
+		len = 1;
+	while (n != 0)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
+}
+
+char	*ft_itoa(int n)
+{
+	char	*str;
+	int		len;
+	long	nbr;
+
+	nbr = n;
+	len = number_len(n);
+	str = malloc(len + 1);
+	if (!str)
+		return (NULL);
+	str[len] = '\0';
+	if (nbr < 0)
+	{
+		str[0] = '-';
+		nbr = -nbr;
+	}
+	if (nbr == 0)
+		str[0] = '0';
+	while (nbr > 0)
+	{
+		len--;
+		str[len] = (nbr % 10) + '0';
+		nbr /= 10;
+	}
+	return (str);
+}
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	char    *string;
+	string = ft_itoa(0123);
+	printf("%s",string);
+	return (0);
+}*/
